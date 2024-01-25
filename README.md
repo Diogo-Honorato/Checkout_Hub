@@ -1,5 +1,5 @@
 ## Descrição
-software para gerenciamentos de check-out de supermercados e varejos, para fins didáticos.
+software para gerenciamentos de checkout de supermercados e varejos, para fins didáticos.
 
 ## Observações
 Necessário ter instalado um compilador de linguagem C++ e o make.
@@ -10,7 +10,7 @@ sudo apt install build-essential cmake
 
 ## Como usar
 ### Para executar o algoritmo:
-1. Navegue até o diretório onde se encontram o arquivo `Check-out_Hub` , usando o terminal.
+1. Navegue até o diretório onde se encontram o arquivo `Checkout_Hub` , usando o terminal.
 2. Digite o comando abaixo para compilar e executar o programa:
 
 ```bash 

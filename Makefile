@@ -3,7 +3,7 @@ CC = g++
 CFLAGS = -Wall -std=c++11 -g -lm
 
 # Nome do executável
-EXECUTABLE = check-out.exe
+EXECUTABLE = checkout.exe
 
 # Diretórios
 HEADER_DIR = API/Headers
