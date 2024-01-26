@@ -44,19 +44,28 @@ float RegistroCompra::comprarProduto()
 
     std::string identificadorProduto;
 
-    std::getline(std::cin, identificadorProduto);
+    float quantidadeProduto;
 
-    while (identificadorProduto != "0")
+    while (true)
     {
-        /*
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cin.clear();
-        */
-        produto = estoque.consultarEstoque(identificadorProduto);
+        std::cout << "Produto:" << std::endl;
+        std::cin >> identificadorProduto;
 
-        valorTotalCompra = valorTotalCompra + produto.getValor();
+        if (identificadorProduto != "0")
+        {
 
-        std::getline(std::cin, identificadorProduto);
+            produto = estoque.consultarEstoque(identificadorProduto);
+
+            std::cout << "Quantidade:" << std::endl;
+            std::cin >> quantidadeProduto;
+
+            valorTotalCompra = valorTotalCompra + (produto.getValor() * quantidadeProduto);
+        }
+        else
+        {
+            std::cout << "Compra Finalizada !" << std::endl;
+            break;
+        }
     }
 
     setLucro(valorTotalCompra);

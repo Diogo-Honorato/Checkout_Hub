@@ -17,11 +17,6 @@ int main(){
 
     totalCompra = comprar.comprarProduto();
 
-    std::cout << totalCompra << std::endl;
+    std::cout <<"Valor da Compra: "<< totalCompra << std::endl;
 
-    std::cout << comprar.getLucro();
-
-    std::cout << comprar.encerrarExpediente();
-
-    std::cout << comprar.getLucro();
 }
