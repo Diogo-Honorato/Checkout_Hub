@@ -1,22 +1,16 @@
 #include <iostream>
 #include <string>
 #include "../../Headers/Estoque/Estoque.hpp"
-#include "../../Headers/RegistroCompra/RegistroCompra.hpp"
+#include "../../Headers/GerenciadorArquivos/GerenciadorArquivos.hpp"
 
-int main(){
+int main()
+{
 
-    Estoque estoque;
+    GerenciadorArquivos arquivo;
 
-    float totalCompra;
-
-    estoque.adicionarProduto("Banana",65.00f,5);
-    estoque.adicionarProduto("Leite",15.00f,16);
-    estoque.adicionarProduto("Arroz",25.00f,510);
-
-    RegistroCompra comprar = RegistroCompra(estoque);
-
-    totalCompra = comprar.comprarProduto();
-
-    std::cout <<"Valor da Compra: "<< totalCompra << std::endl;
+    arquivo.inserirProduto("Leite", 20.00f, 3);
+    arquivo.inserirProduto("Arroz", 6.50f, 50);
+    arquivo.inserirProduto("Cafe", 6.50f, 50);
+    arquivo.inserirProduto("Arroz", 6.50f, 50);
 
 }
