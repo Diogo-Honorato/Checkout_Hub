@@ -3,12 +3,14 @@
 #include <string>
 #include <unordered_map>
 #include "../Produto/Produto.hpp"
+#include "../GerenciadorArquivos/GerenciadorArquivos.hpp"
 
 class Estoque
 {
 private:
     uint quantidadeTotalProdutos;
     std::unordered_map<std::string, Produto> estoque;
+    GerenciadorArquivos arquivos;
 
 public:
     void adicionarProduto(const std::string &nome, float valor, int quantidade);
