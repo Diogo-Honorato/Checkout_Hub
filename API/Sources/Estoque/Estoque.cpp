@@ -16,7 +16,17 @@ Estoque::~Estoque(){
 
 void Estoque::adicionarProduto(const std::string &nome, float valor, int quantidade)
 {
-    estoque[nome] = Produto(nome, valor, quantidade);
+    if(estoque.find(nome) != estoque.end()){
+
+        int resultado = estoque[nome].getQuantidade() + quantidade;
+
+        estoque[nome].setQuantidade(resultado);
+
+    }
+    else
+    {
+        estoque[nome] = Produto(nome, valor, quantidade);
+    }
 
     quantidadeTotalProdutos = quantidadeTotalProdutos + quantidade;
 }
@@ -76,7 +86,7 @@ std::cout << "Quantidade total de produtos: " << quantidadeTotalProdutos << "\n\
         Produto& produto = par.second;
 
         std::cout << std::left << std::setw(20) << produto.getNome()
-                  << std::right << std::fixed << std::setw(1) << std::setprecision(2) << produto.getValor()
+                  << std::right << std::fixed << std::setw(6) << std::setprecision(2) << produto.getValor()
                   << std::right << std::setw(12) << produto.getQuantidade() << "\n";
 
         std::cout << std::string(42, '-') << "\n";
