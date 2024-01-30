@@ -7,15 +7,15 @@ class RegistroCompra
 {
 private:
     float lucro;
-    Estoque estoque;
+    
     float valorTotalCompra;
 public:
-    RegistroCompra(Estoque estoqueProdutos);
+    RegistroCompra();
     float setLucro(float valorLucro);
     float getLucro();
     float getValorTotalCompra();
     float encerrarExpediente();
-    float comprarProduto();
+    float comprarProduto(Estoque &estoque);
 };
 
 #endif

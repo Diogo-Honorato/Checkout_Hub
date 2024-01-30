@@ -4,7 +4,7 @@
 #include "../../Headers/RegistroCompra/RegistroCompra.hpp"
 #include "../../Headers/Produto/Produto.hpp"
 
-RegistroCompra::RegistroCompra(Estoque estoqueProdutos) : lucro(0.0f), estoque(estoqueProdutos), valorTotalCompra(0.0f)
+RegistroCompra::RegistroCompra() : lucro(0.0f), valorTotalCompra(0.0f)
 {
 }
 
@@ -37,7 +37,7 @@ float RegistroCompra::encerrarExpediente()
     return lucroFinal;
 }
 
-float RegistroCompra::comprarProduto()
+float RegistroCompra::comprarProduto(Estoque &estoque)
 {
 
     Produto produto;
@@ -60,6 +60,8 @@ float RegistroCompra::comprarProduto()
             std::cin >> quantidadeProduto;
 
             valorTotalCompra = valorTotalCompra + (produto.getValor() * quantidadeProduto);
+
+            estoque.decrementarQuantidadeProduto(identificadorProduto, (int)quantidadeProduto);
         }
         else
         {
