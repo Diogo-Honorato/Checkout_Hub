@@ -14,12 +14,15 @@ private:
 
 public:
     void adicionarProduto(const std::string &nome, float valor, int quantidade);
+    bool inciarEstoque();
     bool removerProduto(const std::string &nome);
     void listarProdutos();
     int incrementarQuantidadeProduto(const std::string &nomeProduto, int valorQuantidade);
     int decrementarQuantidadeProduto(const std::string &nomeProduto, int valorQuantidade);
     Produto consultarEstoque(const std::string &nome);
     Estoque();
+    ~Estoque();
+    
 };
 
 #endif

@@ -5,6 +5,8 @@
 
 int main()
 {
+    Estoque estoque;
 
+    estoque.listarProdutos();
 
 }

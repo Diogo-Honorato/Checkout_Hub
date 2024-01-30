@@ -5,36 +5,13 @@
 #include <sstream>
 #include <fstream>
 #include "../../Headers/GerenciadorArquivos/GerenciadorArquivos.hpp"
+#include "../../Headers/Produto/Produto.hpp"
 
-void GerenciadorArquivos::inserirProduto(const std::string &produto, float valorProduto, int quantidadeProduto)
-{
-
-    std::string nomeArquivo = "API/Headers/GerenciadorArquivos/inputEstoque.txt";
-
-    std::ofstream arquivoSaida;
-
-    arquivoSaida.open(nomeArquivo, std::ios::app);
-
-    if (arquivoSaida.is_open())
-    {
-
-        arquivoSaida << produto << " " << valorProduto << " " << quantidadeProduto << std::endl;
-
-        arquivoSaida.close();
-
-        std::cout << "Produto: '" << produto << "' armazenado com sucesso." << std::endl;
-    }
-    else
-    {
-        std::cerr << "ERRO: ao abrir o arquivo: '" << nomeArquivo << "' para escrita." << std::endl;
-    }
-}
-
-std::vector<std::tuple<std::string, float, int>> lerArquivo()
+std::vector<std::tuple<std::string, float, int>> GerenciadorArquivos::lerArquivo()
 {
 
     std::ifstream arquivoEntrada;
-    std::string nomeArquivoEntrada = "inputEstoque.txt";
+    std::string nomeArquivoEntrada = "API/Headers/GerenciadorArquivos/inputEstoque.txt";
 
     arquivoEntrada.open(nomeArquivoEntrada);
 
@@ -66,11 +43,36 @@ std::vector<std::tuple<std::string, float, int>> lerArquivo()
         }
         else
         {
-            std::cerr << "Erro ao ler valores da linha." << std::endl;
+            std::cerr << "Erro ao ler valores da linha: " << indentificador << " " << valorProduto << " " << quantidadeProduto << std::endl;
         }
     }
 
     arquivoEntrada.close();
 
     return matrizValores;
+}
+
+int GerenciadorArquivos::atualizarArquivo(std::unordered_map<std::string, Produto> estoque)
+{
+    std::string nomeArquivo = "API/Headers/GerenciadorArquivos/inputEstoque.txt";
+
+    std::ofstream arquivoAtualizado;
+
+    arquivoAtualizado.open(nomeArquivo, std::ios::trunc);
+
+    if(!arquivoAtualizado.is_open()){
+
+        std::cerr << "Erro ao abrir o arquivo." << std::endl;
+
+        return 0;
+    }
+
+    for(auto iterador : estoque){
+
+        arquivoAtualizado << iterador.second.getNome() << " " << iterador.second.getValor() << " " << iterador.second.getQuantidade() << std::endl;
+    }
+
+    arquivoAtualizado.close();
+
+    return 1;
 }
