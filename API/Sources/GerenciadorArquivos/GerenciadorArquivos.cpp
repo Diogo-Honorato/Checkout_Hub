@@ -104,5 +104,41 @@ int GerenciadorArquivos::gerarRecibo(std::vector<Produto> produtoLista, float to
 
     arquivoRecibo << std::fixed << std::setprecision(2) << "TOTAL: $" << totalValorCompra << std::endl;
 
+    arquivoRecibo.close();
+
+    return 1;
+}
+
+int GerenciadorArquivos::gerarListaProdutos(std::vector<std::string> chavesEstoque ,std::unordered_map<std::string, Produto> estoque, int totalProdutos ){
+
+    std::string nomeArquivo = "API/Arquivos/OutputListaProdutos/listaProdutos.txt";
+
+    std::ofstream arquivoLista;
+
+    arquivoLista.open(nomeArquivo, std::ios::trunc);
+
+    if(!arquivoLista.is_open()){
+
+        std::cerr << "Erro ao abrir o arquivo: " << nomeArquivo <<  std::endl;
+
+        return 0;
+    }
+
+    arquivoLista << "\nQuantidade total de produtos: " << totalProdutos << "\n" << std::string(42, '=') <<"\n\n";
+    arquivoLista << std::left << std::setw(20) << "Produto" << std::setw(13) << "Valor" << "Unid." << "\n";
+    arquivoLista << std::string(42, '-') << "\n";
+
+    for ( auto& chave : chavesEstoque) {
+
+        arquivoLista << std::left << std::setw(21) << chave
+                     << std::fixed << std::setprecision(2)
+                     << std::setw(13) << estoque[chave].getValor()
+                     << estoque[chave].getQuantidade() << "\n";
+
+        arquivoLista << std::string(42, '-') << "\n";
+    }
+
+    arquivoLista.close();
+
     return 1;
 }

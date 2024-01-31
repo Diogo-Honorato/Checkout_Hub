@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <vector>
+#include <algorithm>
 #include "../../Headers/Estoque/Estoque.hpp"
 
 Estoque::Estoque() : quantidadeTotalProdutos(0)
@@ -76,23 +78,31 @@ Produto Estoque::consultarEstoque(const std::string &nome)
 
 void Estoque::listarProdutos()
 {
+    std::vector<std::string> chavesEstoque;
+
+    for (const auto& pair : estoque) {
+
+        chavesEstoque.push_back(pair.first);
+    }
+
+    std::sort(chavesEstoque.begin(),chavesEstoque.end());
 
     std::cout << "\nQuantidade total de produtos: " << quantidadeTotalProdutos << "\n" << std::string(42, '=') <<"\n\n";
     std::cout << std::left << std::setw(20) << "|Produto|" << std::setw(13) << "|Valor|" << "|Unid.|" << "\n";
     std::cout << std::string(42, '-') << "\n";
 
-    for ( auto& par : estoque) {
+    for ( auto& chave : chavesEstoque) {
 
-        Produto& produto = par.second;
 
-        std::cout << std::left << std::setw(21) << produto.getNome()
+        std::cout << std::left << std::setw(21) << chave
                   << std::fixed << std::setprecision(2)
-                  << std::setw(13) << produto.getValor()
-                  << produto.getQuantidade() << "\n";
+                  << std::setw(13) << estoque[chave].getValor()
+                  << estoque[chave].getQuantidade() << "\n";
 
         std::cout << std::string(42, '-') << "\n";
     }
     
+    arquivos.gerarListaProdutos(chavesEstoque ,estoque, quantidadeTotalProdutos);
 }
 
 int Estoque::incrementarQuantidadeProduto(const std::string &nomeProduto, int valorQuantidade)
