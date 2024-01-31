@@ -9,11 +9,11 @@
 class GerenciadorArquivos
 {
 public:
-    void inserirProduto(const std::string &produto, float valorProduto, int quantidadeProduto);
-
     std::vector<std::tuple<std::string, float, int>> lerArquivo();
 
     int atualizarArquivo(std::unordered_map<std::string, Produto> estoque);
+
+    int gerarRecibo(std::vector<Produto> produtoLista, float totalValorCompra);
 };
 
 #endif 

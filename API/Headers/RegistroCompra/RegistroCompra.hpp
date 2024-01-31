@@ -2,6 +2,7 @@
 #define _REGISTRCOMPRA_
 #include "../Estoque/Estoque.hpp"
 #include "../Produto/Produto.hpp"
+#include "../GerenciadorArquivos/GerenciadorArquivos.hpp"
 
 class RegistroCompra
 {
@@ -9,6 +10,9 @@ private:
     float lucro;
     
     float valorTotalCompra;
+
+    GerenciadorArquivos arquivos;
+    
 public:
     RegistroCompra();
     float setLucro(float valorLucro);

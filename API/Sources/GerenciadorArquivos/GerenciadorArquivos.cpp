@@ -4,6 +4,7 @@
 #include <tuple>
 #include <sstream>
 #include <fstream>
+#include <iomanip> 
 #include "../../Headers/GerenciadorArquivos/GerenciadorArquivos.hpp"
 #include "../../Headers/Produto/Produto.hpp"
 
@@ -62,7 +63,7 @@ int GerenciadorArquivos::atualizarArquivo(std::unordered_map<std::string, Produt
 
     if(!arquivoAtualizado.is_open()){
 
-        std::cerr << "Erro ao abrir o arquivo." << std::endl;
+        std::cerr << "Erro ao abrir o arquivo: " << nomeArquivo << std::endl;
 
         return 0;
     }
@@ -73,6 +74,35 @@ int GerenciadorArquivos::atualizarArquivo(std::unordered_map<std::string, Produt
     }
 
     arquivoAtualizado.close();
+
+    return 1;
+}
+
+int GerenciadorArquivos::gerarRecibo(std::vector<Produto> produtoLista, float totalValorCompra){
+
+    std::ofstream arquivoRecibo;
+
+    std::string nomeArquivo = "API/Headers/RegistroCompra/recibo.txt";
+
+    arquivoRecibo.open(nomeArquivo, std::ios::trunc);
+
+    if(!arquivoRecibo.is_open()){
+
+        std::cerr << "Erro ao abrir o arquivo: " << nomeArquivo <<  std::endl;
+
+        return 0;
+    }
+
+    arquivoRecibo << std::left << std::setw(20) << "Produto" << std::setw(10) << "Valor" << std::right << std::setw(15) << "Quantidade\n" << std::endl;
+
+    for( auto &iterador : produtoLista){
+
+        arquivoRecibo << std::left << std::setw(20) << iterador.getNome() << std::setw(10) << "$" + std::to_string(iterador.getValor()) << std::right <<std::setw(10) << iterador.getQuantidade() << std::endl;
+    }
+
+    arquivoRecibo << std::string(50, '-') << std::endl;
+
+    arquivoRecibo << "TOTAL: $" << totalValorCompra << std::endl;
 
     return 1;
 }
