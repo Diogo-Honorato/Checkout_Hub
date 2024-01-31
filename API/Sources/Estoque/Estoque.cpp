@@ -77,17 +77,18 @@ Produto Estoque::consultarEstoque(const std::string &nome)
 void Estoque::listarProdutos()
 {
 
-std::cout << "Quantidade total de produtos: " << quantidadeTotalProdutos << "\n\n";
-    std::cout << std::left << std::setw(20) << "|Produto|" << std::setw(10) << "|Valor|" << std::setw(12) << "|Quantidade|" << "\n";
+    std::cout << "\nQuantidade total de produtos: " << quantidadeTotalProdutos << "\n" << std::string(42, '=') <<"\n\n";
+    std::cout << std::left << std::setw(20) << "|Produto|" << std::setw(13) << "|Valor|" << "|Unid.|" << "\n";
     std::cout << std::string(42, '-') << "\n";
 
     for ( auto& par : estoque) {
 
         Produto& produto = par.second;
 
-        std::cout << std::left << std::setw(20) << produto.getNome()
-                  << std::right << std::fixed << std::setw(6) << std::setprecision(2) << produto.getValor()
-                  << std::right << std::setw(12) << produto.getQuantidade() << "\n";
+        std::cout << std::left << std::setw(21) << produto.getNome()
+                  << std::fixed << std::setprecision(2)
+                  << std::setw(13) << produto.getValor()
+                  << produto.getQuantidade() << "\n";
 
         std::cout << std::string(42, '-') << "\n";
     }

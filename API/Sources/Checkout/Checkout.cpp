@@ -7,9 +7,12 @@
 int main()
 {
     Estoque estoque;
-
+/*
     RegistroCompra comprar;
 
     comprar.comprarProduto(estoque);
+*/
 
+
+    estoque.listarProdutos();
 }

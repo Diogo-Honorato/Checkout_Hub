@@ -12,7 +12,7 @@ std::vector<std::tuple<std::string, float, int>> GerenciadorArquivos::lerArquivo
 {
 
     std::ifstream arquivoEntrada;
-    std::string nomeArquivoEntrada = "API/Headers/GerenciadorArquivos/inputEstoque.txt";
+    std::string nomeArquivoEntrada = "API/Arquivos/InputEstoque/inputEstoque.txt";
 
     arquivoEntrada.open(nomeArquivoEntrada);
 
@@ -55,7 +55,7 @@ std::vector<std::tuple<std::string, float, int>> GerenciadorArquivos::lerArquivo
 
 int GerenciadorArquivos::atualizarArquivo(std::unordered_map<std::string, Produto> estoque)
 {
-    std::string nomeArquivo = "API/Headers/GerenciadorArquivos/inputEstoque.txt";
+    std::string nomeArquivo = "API/Arquivos/InputEstoque/inputEstoque.txt";
 
     std::ofstream arquivoAtualizado;
 
@@ -82,7 +82,7 @@ int GerenciadorArquivos::gerarRecibo(std::vector<Produto> produtoLista, float to
 
     std::ofstream arquivoRecibo;
 
-    std::string nomeArquivo = "API/Headers/RegistroCompra/recibo.txt";
+    std::string nomeArquivo = "API/Arquivos/OutputRecibo/recibo.txt";
 
     arquivoRecibo.open(nomeArquivo, std::ios::trunc);
 
@@ -93,16 +93,16 @@ int GerenciadorArquivos::gerarRecibo(std::vector<Produto> produtoLista, float to
         return 0;
     }
 
-    arquivoRecibo << std::left << std::setw(20) << "Produto" << std::setw(10) << "Valor" << std::right << std::setw(15) << "Quantidade\n" << std::endl;
+    arquivoRecibo << std::left << std::setw(20) << "Produto" << std::setw(15) << "Valor" << std::setw(10) << "Unid.\n" << std::endl;
 
     for( auto &iterador : produtoLista){
 
-        arquivoRecibo << std::left << std::setw(20) << iterador.getNome() << std::setw(10) << "$" + std::to_string(iterador.getValor()) << std::right <<std::setw(10) << iterador.getQuantidade() << std::endl;
+        arquivoRecibo << std::fixed << std::setprecision(2) << std::left << std::setw(20) << iterador.getNome() << "$" << std::setw(15) << iterador.getValor() << iterador.getQuantidade() << std::endl;
     }
 
     arquivoRecibo << std::string(50, '-') << std::endl;
 
-    arquivoRecibo << "TOTAL: $" << totalValorCompra << std::endl;
+    arquivoRecibo << std::fixed << std::setprecision(2) << "TOTAL: $" << totalValorCompra << std::endl;
 
     return 1;
 }

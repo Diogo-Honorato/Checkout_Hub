@@ -48,7 +48,7 @@ float RegistroCompra::comprarProduto(Estoque &estoque)
 
     std::vector<Produto> produtoLista;
 
-    float quantidadeProduto;
+    float unidadeProduto;
 
     while (true)
     {
@@ -60,14 +60,14 @@ float RegistroCompra::comprarProduto(Estoque &estoque)
 
             produto = estoque.consultarEstoque(identificadorProduto);
 
-            std::cout << "Quantidade:" << std::endl;
-            std::cin >> quantidadeProduto;
+            std::cout << "Unidade:" << std::endl;
+            std::cin >> unidadeProduto;
 
-            valorTotalCompra = valorTotalCompra + (produto.getValor() * quantidadeProduto);
+            valorTotalCompra = valorTotalCompra + (produto.getValor() * unidadeProduto);
 
-            estoque.decrementarQuantidadeProduto(identificadorProduto, (int)quantidadeProduto);
+            estoque.decrementarQuantidadeProduto(identificadorProduto, (int)unidadeProduto);
 
-            produto.setQuantidade((int)quantidadeProduto);
+            produto.setQuantidade((int)unidadeProduto);
 
             produtoLista.push_back(produto);
         }

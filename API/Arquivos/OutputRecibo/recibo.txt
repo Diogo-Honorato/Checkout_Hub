@@ -1,0 +1,8 @@
+Produto             Valor          Unid.
+    
+Leite               $3.49           2
+Presunto            $11.49          2
+Queijo              $9.99           2
+Sabonete            $1.99           5
+--------------------------------------------------
+TOTAL: $59.89
