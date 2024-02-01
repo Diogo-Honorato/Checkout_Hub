@@ -4,7 +4,8 @@
 #include <tuple>
 #include <sstream>
 #include <fstream>
-#include <iomanip> 
+#include <iomanip>
+#include <ctime>
 #include "../../Headers/GerenciadorArquivos/GerenciadorArquivos.hpp"
 #include "../../Headers/Produto/Produto.hpp"
 
@@ -78,7 +79,12 @@ int GerenciadorArquivos::atualizarArquivo(std::unordered_map<std::string, Produt
     return 1;
 }
 
-int GerenciadorArquivos::gerarRecibo(std::vector<Produto> produtoLista, float totalValorCompra){
+int GerenciadorArquivos::gerarRecibo(std::vector<Produto> produtoLista, float totalValorCompra, std::vector<float> infoCompra){
+
+    std::time_t tempoAtual = std::time(0);
+
+    std::tm *tempoLocal = std::localtime(&tempoAtual);
+
 
     std::ofstream arquivoRecibo;
 
@@ -93,16 +99,30 @@ int GerenciadorArquivos::gerarRecibo(std::vector<Produto> produtoLista, float to
         return 0;
     }
 
-    arquivoRecibo << std::left << std::setw(20) << "Produto" << std::setw(15) << "Valor" << std::setw(10) << "Unid.\n" << std::endl;
+    arquivoRecibo << tempoLocal->tm_mday << '/' << (tempoLocal->tm_mon + 1) << '/' << (tempoLocal->tm_year + 1900) << "  ";
+
+    arquivoRecibo << tempoLocal->tm_hour << ':' << tempoLocal->tm_min << ':' << tempoLocal->tm_sec << std::endl;
+
+    arquivoRecibo << std::string(60, '-') << std::endl;
+
+    arquivoRecibo << std::left << std::setw(20) << "Produto" << std::setw(15) << "Val.Unit" << std::setw(13) << "Unid." << "Total\n" << std::endl;
 
     for( auto &iterador : produtoLista){
 
-        arquivoRecibo << std::fixed << std::setprecision(2) << std::left << std::setw(20) << iterador.getNome() << "$" << std::setw(15) << iterador.getValor() << iterador.getQuantidade() << std::endl;
+        arquivoRecibo << std::fixed << std::setprecision(2) << std::left << std::setw(20) << iterador.getNome() << "$" << std::setw(15) << iterador.getValor() << std::setw(12)<< iterador.getQuantidade() << (iterador.getValor() * (float)iterador.getQuantidade()) << std::endl;
     }
 
-    arquivoRecibo << std::string(50, '-') << std::endl;
+    arquivoRecibo << std::string(60, '-') << std::endl;
+    
+    arquivoRecibo << "Quantidade de produtos:  " << produtoLista.size() << std::endl;
+    
+    arquivoRecibo << std::fixed << std::setprecision(2) << "\nTotal a pagar:\t\t\t" << "$" << totalValorCompra << std::endl;
 
-    arquivoRecibo << std::fixed << std::setprecision(2) << "TOTAL: $" << totalValorCompra << std::endl;
+    arquivoRecibo << std::left << std::fixed << std::setprecision(2) << std::setw(25) << "\nDinheiro: " << "$" << infoCompra[0] << std::endl;
+
+    arquivoRecibo << std::left << std::fixed << std::setprecision(2) << std::setw(25) << "\nTroco: " << "$" << infoCompra[1] << std::endl;
+    
+    arquivoRecibo << std::string(60, '-') << std::endl;
 
     arquivoRecibo.close();
 

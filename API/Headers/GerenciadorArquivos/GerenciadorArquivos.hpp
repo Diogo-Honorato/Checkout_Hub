@@ -13,7 +13,7 @@ public:
 
     int atualizarArquivo(std::unordered_map<std::string, Produto> estoque);
 
-    int gerarRecibo(std::vector<Produto> produtoLista, float totalValorCompra);
+    int gerarRecibo(std::vector<Produto> produtoLista, float totalValorCompra, std::vector<float> infoCompra);
 
     int gerarListaProdutos(std::vector<std::string> chavesEstoque ,std::unordered_map<std::string, Produto> estoque, int totalProdutos);
 };
